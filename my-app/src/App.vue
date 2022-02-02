@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { fetchMessage } from "@/services/fetchers";
+import { fetchMessage } from "./services/fetchers.js";
 
 export default {
   data() {
@@ -11,12 +11,17 @@ export default {
       message: "",
     };
   },
-  async created() {
-    try {
-      this.message = await fetchMessage();
-    } catch (error) {
-      this.message = "server error :(";
-    }
+  created() {
+    this.fetchData();
+  },
+  methods: {
+    async fetchData() {
+      try {
+        this.message = await fetchMessage();
+      } catch (e) {
+        this.message = "server error";
+      }
+    },
   },
 };
 </script>
